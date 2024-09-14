@@ -1,0 +1,15 @@
+import sys
+from collections import deque
+
+numN = int(input(""))
+cardDeq = deque()
+
+for i in range(numN):
+    cardDeq.append(i+1)
+
+while(len(cardDeq) > 1):
+    cardDeq.popleft()
+    cardDeq.append(cardDeq.popleft())
+    
+
+print(cardDeq[0])

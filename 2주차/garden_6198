@@ -1,0 +1,23 @@
+import sys
+
+numN = int(input(""))
+numList = []
+count = 0
+
+for i in range(numN):
+    tempNum = int(sys.stdin.readline())
+    if len(numList) == 0:
+        numList.append(tempNum)
+
+    elif tempNum < numList[-1] :
+        count += len(numList)
+        numList.append(tempNum)
+    else :
+        while(numList[-1] <= tempNum):
+            numList.pop()
+            if len(numList) == 0:
+                break;
+        count += len(numList)
+        numList.append(tempNum)
+
+print(count)

@@ -1,0 +1,62 @@
+# 9월 30일 풀이
+# 4주차 멋사 코테반!
+# 기억할 점 : bfs 문제는 큐와 연관이 있다. 하나의 노드를 정해서 주변을 모두 큐에 넣어버리기!
+# 그리고 큐가 빌 때까지 탐색을 계속한다.
+# 파이썬에서는 함수 바깥에 선언한 모든 변수는 GLOBAL 스코프로 작동
+# 풀이시간 약 1시간. 티스토리 참고함!
+
+
+
+import sys
+from collections import deque
+
+testCase = int(input(""))
+
+
+# 방향 벡터
+dx = [-1, 1, 0, 0]
+dy = [0, 0, -1, 1]
+
+def bfs(x, y, N, M, cab_arr):
+    q = deque()
+    q.append((x, y))
+    cab_arr[x][y] = -1
+
+    while q:
+        x, y = q.popleft()
+
+        for i in range(4):
+            nx = x + dx[i]
+            ny = y + dy[i]
+
+            if nx < 0 or ny < 0 or nx >= M or ny >= N:  # 좌표가 범위를 벗어나는지 확인
+                continue
+            elif cab_arr[nx][ny] == 1:
+                q.append((nx, ny))
+                cab_arr[nx][ny] = -1      # 잘 탐색했으면 -1으로 변경
+
+def cabage_solve(N, M, K):
+    result = 0
+    
+    for i in range(K):      # K개의 배추의 위치 입력받아 저장(1)
+        temp1, temp2 = map(int, list(sys.stdin.readline().split()))
+        cab_arr[temp2][temp1] = 1
+
+ #   print(cab_arr)
+    for i in range(M):
+        for j in range(N):
+            if cab_arr[i][j] == 1:
+                bfs(i, j, N, M, cab_arr)
+                result += 1
+
+    return result
+
+
+for _ in range(testCase):
+    numN, numM, numK = map(int, list(sys.stdin.readline().split()))
+    cab_arr = []
+    for i in range(numM):
+        cab_arr.append([])
+        for j in range(numN):
+            cab_arr[i].append(0)
+    print(cabage_solve(numN,numM,numK))

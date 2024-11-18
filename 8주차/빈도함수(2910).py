@@ -24,6 +24,14 @@ for num in Messege:
         idx = Numbers.index(num)
         Frequency[idx] += 1
 
+
+# 빈도 정렬
+combined = list(zip(Numbers, Frequency))
+combined.sort(key = lambda x: -x[1])        # lambda식, -x[] 표현은 역순으로 정렬을 의미한다)
+Numbers, Frequency = zip(*combined)
+
+
+
 #print(Numbers)
 #print(Frequency)
 
